@@ -32,7 +32,7 @@ void	init_data(t_window *window, int width, int height)
 	window->anm = malloc(sizeof(*(window->img)) * 4);
 	window->texture = malloc(sizeof(*(window->img)) * 5);
 	init_texture(window, width, height);
-	init_texture_anm(window, 0, 0);
+	init_texture_anm(window);
 	init_anm(window);
 	window->window = mlx_new_window(window->mlx, window->window_width,
 			window->window_hight, "cub3D");
@@ -58,32 +58,18 @@ void	init_texture(t_window *window, int width, int height)
 {
 	window->texture[0].img = mlx_xpm_file_to_image(window->mlx,
 			window->map->texture_no, &width, &height);
-	window->texture[0].sizex = width;
-	window->texture[0].sizey = height;
 	window->texture[1].img = mlx_xpm_file_to_image(window->mlx,
 			window->map->texture_so, &width, &height);
-	window->texture[1].sizex = width;
-	window->texture[1].sizey = height;
 	window->texture[2].img = mlx_xpm_file_to_image(window->mlx,
 			window->map->texture_we, &width, &height);
-	window->texture[2].sizex = width;
-	window->texture[2].sizey = height;
 	window->texture[3].img = mlx_xpm_file_to_image(window->mlx,
 			window->map->texture_ea, &width, &height);
-	window->texture[3].sizex = width;
-	window->texture[3].sizey = height;
 	window->texture[4].img = mlx_xpm_file_to_image(window->mlx,
-			"./Textures/xpm/Door.xpm", &width, &height);
-	window->texture[4].sizex = width;
-	window->texture[4].sizey = height;
+			"./Textures/xpm/dpp1.xpm", &width, &height);
 	if (!window->texture[0].img || !window->texture[1].img
 		|| !window->texture[2].img || !window->texture[3].img
 		|| !window->texture[4].img)
 		the_textures_is_invalid();
-}
-
-void	init_texture_anm(t_window *window, int sizex, int sizey)
-{
 	window->texture[0].addr = mlx_get_data_addr(window->texture[0].img,
 			&window->texture[0].bits_per_pixel, &window->texture[0].line_length,
 			&window->texture[0].endian);
@@ -93,12 +79,21 @@ void	init_texture_anm(t_window *window, int sizex, int sizey)
 	window->texture[2].addr = mlx_get_data_addr(window->texture[2].img,
 			&window->texture[2].bits_per_pixel, &window->texture[2].line_length,
 			&window->texture[2].endian);
+}
+
+void	init_texture_anm(t_window *window)
+{
+	int	sizex;
+	int	sizey;
+
 	window->texture[3].addr = mlx_get_data_addr(window->texture[3].img,
 			&window->texture[3].bits_per_pixel, &window->texture[3].line_length,
 			&window->texture[3].endian);
 	window->texture[4].addr = mlx_get_data_addr(window->texture[4].img,
 			&window->texture[4].bits_per_pixel, &window->texture[4].line_length,
 			&window->texture[4].endian);
+	sizex = 512;
+	sizey = 512;
 	window->anm[0].img = mlx_xpm_file_to_image(window->mlx,
 			"Textures/xpm/pis-0/pis-0.xpm", &sizex, &sizey);
 	window->anm[1].img = mlx_xpm_file_to_image(window->mlx,
@@ -107,15 +102,15 @@ void	init_texture_anm(t_window *window, int sizex, int sizey)
 			"Textures/xpm/pis-0/pis-2.xpm", &sizex, &sizey);
 	window->anm[3].img = mlx_xpm_file_to_image(window->mlx,
 			"Textures/xpm/pis-0/pis-3.xpm", &sizex, &sizey);
-}
-
-void	init_anm(t_window *window)
-{
 	if (!window->texture[0].addr || !window->texture[1].addr
 		|| !window->texture[2].addr || !window->texture[3].addr
 		|| !window->texture[4].addr || !window->anm[0].img
 		|| !window->anm[1].img || !window->anm[2].img || !window->anm[3].img)
 		the_textures_is_invalid();
+}
+
+void	init_anm(t_window *window)
+{
 	window->anm[0].addr = mlx_get_data_addr(window->anm[0].img,
 			&window->anm[0].bits_per_pixel, &window->anm[0].line_length,
 			&window->anm[0].endian);

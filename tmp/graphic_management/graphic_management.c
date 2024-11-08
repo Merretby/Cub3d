@@ -94,7 +94,7 @@ void	graphic_management(t_window *window)
 	window->minimap = 0.5;
 	window->anm_index = 0;
 	window->pa = get_spawninig_orientation(window->spawning_dir);
-	init_data(window, 0, 0);
+	init_data(window, SIZE, SIZE);
 	if (window->img == NULL)
 		exit_error("Failed to allocate memory for img.\n");
 	window->img->img = mlx_new_image(window->mlx, window->window_width,

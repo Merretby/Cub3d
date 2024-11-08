@@ -19,7 +19,8 @@
 # define MINI_MAP_SIZE 6
 # define MAP_HEIGHT 900
 # define MAP_WIDTH 1400
-# define MSPEED 2.2
+# define SIZE 100
+# define MSPEED 3
 # define COLLISION_BUFFER 10
 
 # include "../Get-Next-Line/get_next_line.h"
@@ -64,8 +65,6 @@ typedef struct s_img
 	int			bits_per_pixel;
 	int			line_length;
 	int			endian;
-	int			sizex;
-	int			sizey;
 }				t_img;
 
 typedef struct s_map_bounds
@@ -248,7 +247,7 @@ void			check_map_end(char **map);
 void			graphic_management(t_window *w);
 void			init_data(t_window *window, int width, int height);
 void			init_anm(t_window *window);
-void			init_texture_anm(t_window *window, int sizex, int sizey);
+void			init_texture_anm(t_window *window);
 void			init_texture(t_window *window, int width, int height);
 int				close_window(t_window *window);
 void			rays_3d_cast(t_window *window);
