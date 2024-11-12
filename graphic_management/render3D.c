@@ -51,7 +51,7 @@ unsigned int	get_texture_pixel_color(t_window *window, t_render render,
 	if (current_y > texture_height)
 		return (create_trgb(0, window->map->floor_color));
 	texture_y = ((double)current_y / texture_height) * render.img->sizey;
-	texture_y = fmax(0, fmin(texture_y, render.img->sizey - 1));
+	texture_y = fmax(1, fmin(texture_y, render.img->sizey - 1));
 	color = git_tpixel(render.img, texture_x, (int)texture_y);
 	return (color);
 }
@@ -80,10 +80,11 @@ int	render3d(t_window *window, int ret, int i, t_render render)
 	{
 		window->dist = window->ray[i].distance
 			* cos(window->ray[i].ray_a - window->pa);
-		window->dist = fmax(window->dist, 0.1);
+		window->dist = fmax(window->dist, 0.5);
 		window->disp = (window->window_width / 2) / tan(FOV_ANGLE / 2);
-		window->wl3dh = (int)(window->tile_size
-				/ (window->dist / window->tile_size) * window->disp);
+		window->wl3dh = (int)(window->dist * window->disp);
+		if (window->wl3dh < 1000)
+			window->wl3dh = 1000;
 		if (window->wl3dh > window->window_hight)
 			window->wl3dh = window->window_hight;
 		if (window->ray[i].washitver)

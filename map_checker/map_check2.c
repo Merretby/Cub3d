@@ -6,7 +6,7 @@
 /*   By: moer-ret <moer-ret@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/08/04 14:19:40 by ksohail-          #+#    #+#             */
-/*   Updated: 2024/11/03 13:30:11 by moer-ret         ###   ########.fr       */
+/*   Updated: 2024/11/09 14:43:08 by moer-ret         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,17 @@ void	free_array(char **str)
 	int	i;
 
 	i = 0;
-	while (str && *str && str[i])
+	while (str && str[i])
 	{
 		free(str[i]);
+		str[i] = NULL;
 		i++;
 	}
-	free(str);
+	if (str)
+	{
+		free(str);
+		str = NULL;
+	}
 }
 
 int	ft_ft_atoi(char *ptr)
@@ -33,21 +38,23 @@ int	ft_ft_atoi(char *ptr)
 	i = 0;
 	while (ptr[i] == ' ')
 		i++;
+	if (!ptr[i])
+		return (-1);
 	while (ptr[i] && ptr[i] != ' ')
 	{
 		if (ft_isdigit(ptr[i]) == 0)
-			the_textures_is_invalid();
+			return (-1);
 		i++;
 	}
 	while (ptr[i])
 	{
 		if (ptr[i] != ' ')
-			the_textures_is_invalid();
+			return (-1);
 		i++;
 	}
 	num = ft_atoi(ptr);
 	if (num < 0 || num > 255)
-		the_textures_is_invalid();
+		return (-1);
 	return (num);
 }
 
@@ -88,9 +95,12 @@ void	check_map_end(char **map)
 		the_map_is_invalid();
 }
 
-int	create_trgb(int t, int *nums)
+int	array_size(char **str)
 {
-	if (!nums)
-		the_textures_is_invalid();
-	return (t << 24 | nums[0] << 16 | nums[1] << 8 | nums[2]);
+	int	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
 }

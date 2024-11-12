@@ -28,10 +28,10 @@ void	init_data(t_window *window, int width, int height)
 	window->mouse_y = 0;
 	window->shoot = false;
 	window->change_fov_flag = false;
-	window->mlx = mlx_init();
-	window->anm = malloc(sizeof(*(window->img)) * 4);
 	window->texture = malloc(sizeof(*(window->img)) * 5);
+	window->mlx = mlx_init();
 	init_texture(window, width, height);
+	window->anm = malloc(sizeof(*(window->img)) * 4);
 	init_texture_anm(window, 0, 0);
 	init_anm(window);
 	window->window = mlx_new_window(window->mlx, window->window_width,
@@ -73,13 +73,13 @@ void	init_texture(t_window *window, int width, int height)
 	window->texture[3].sizex = width;
 	window->texture[3].sizey = height;
 	window->texture[4].img = mlx_xpm_file_to_image(window->mlx,
-			"./Textures/xpm/Door.xpm", &width, &height);
+			"./Textures/xpm/dpp1.xpm", &width, &height);
 	window->texture[4].sizex = width;
 	window->texture[4].sizey = height;
 	if (!window->texture[0].img || !window->texture[1].img
 		|| !window->texture[2].img || !window->texture[3].img
 		|| !window->texture[4].img)
-		the_textures_is_invalid();
+		exit_window_with_error(window, "bad game\n");
 }
 
 void	init_texture_anm(t_window *window, int sizex, int sizey)
@@ -115,7 +115,7 @@ void	init_anm(t_window *window)
 		|| !window->texture[2].addr || !window->texture[3].addr
 		|| !window->texture[4].addr || !window->anm[0].img
 		|| !window->anm[1].img || !window->anm[2].img || !window->anm[3].img)
-		the_textures_is_invalid();
+		exit_window_with_error(window, "bad game\n");
 	window->anm[0].addr = mlx_get_data_addr(window->anm[0].img,
 			&window->anm[0].bits_per_pixel, &window->anm[0].line_length,
 			&window->anm[0].endian);
@@ -130,5 +130,5 @@ void	init_anm(t_window *window)
 			&window->anm[3].endian);
 	if (!window->anm[0].addr || !window->anm[1].addr || !window->anm[2].addr
 		|| !window->anm[3].addr)
-		the_textures_is_invalid();
+		exit_window_with_error(window, "bad game\n");
 }

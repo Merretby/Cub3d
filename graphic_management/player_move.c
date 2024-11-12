@@ -32,13 +32,13 @@ int	handle_door(t_events event, t_window *window)
 		if (window->map->map[i + 1][j] && (window->map->map[i + 1][j] == 'D'
 				|| window->map->map[i + 1][j] == 'A'))
 			open_close_d(&window->map->map[i + 1][j]);
-		else if (window->map->map[i][j + 1] && (window->map->map[i][j
+		if (window->map->map[i][j + 1] && (window->map->map[i][j
 				+ 1] == 'D' || window->map->map[i][j + 1] == 'A'))
 			open_close_d(&window->map->map[i][j + 1]);
-		else if (i - 1 >= 0 && (window->map->map[i - 1][j] == 'D'
+		if (i - 1 >= 0 && (window->map->map[i - 1][j] == 'D'
 			|| window->map->map[i - 1][j] == 'A'))
 			open_close_d(&window->map->map[i - 1][j]);
-		else if (j - 1 >= 0 && (window->map->map[i][j - 1] == 'D'
+		if (j - 1 >= 0 && (window->map->map[i][j - 1] == 'D'
 			|| window->map->map[i][j - 1] == 'A'))
 			open_close_d(&window->map->map[i][j - 1]);
 	}

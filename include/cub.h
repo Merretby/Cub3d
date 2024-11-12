@@ -227,22 +227,22 @@ void			invalid_file_name1(void);
 void			invalid_file(void);
 void			invalid_arg(void);
 void			the_textures_is_invalid(void);
-void			exit_error(char *str);
-
+void			exit_window_with_error(t_window *window, char *str);
+void			the_map_is_cutted_slices(char *ptr, char *str, int fd);
 char			**return_map(int fd, char *ptr, char *str, int i);
 char			**name_check(char *str);
-void			the_map_is_invalid(void);
-void			invalid_file_name1(void);
+int				invalid_color(t_map *map);
+void			the_file_is_invalid(void);
 
 // map check
 void			map_check(t_map *map, char **str, t_window *window);
-void			check_texture_and_color(t_map *map, char **str);
-int				array_size(char **str);
-void			check_characters(char **map, t_window *window, int i, int k);
-void			is_the_map_surrounded_by_walls(char **map);
+int				check_characters(char **map, t_window *window, int i, int k);
+int				is_the_map_surrounded_by_walls(char **map);
+int				check_texture_and_color(t_map *map, char **str, int i);
 bool			surrounded_with_only_spaces_and_walls(char **map, int x, int y,
 					int lines);
 void			check_map_end(char **map);
+int				array_size(char **str);
 
 // graphic_management
 void			graphic_management(t_window *w);
